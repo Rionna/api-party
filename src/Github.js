@@ -1,51 +1,39 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch, NavLink } from 'react-router-dom'
 
-import './Github.css'
-import GithubUser from './GithubUser'
+import './App.css'
+import Github from './Github'
+import Homework from './Homework'
 
-class Github extends Component {
-  state = {
-    username: '',
-  }
-
-  handleChange = (ev) => {
-    this.setState({ username: ev.target.value })
-  }
-
-  handleSubmit = (ev) => {
-    ev.preventDefault()
-    this.props.history.push(`/github/${this.state.username}`)
-  }
-
+class App extends Component {
   render() {
     return (
-      <div className="Github">
-        <img
-          src="http://www.aha.io/assets/github.7433692cabbfa132f34adb034e7909fa.png"
-          alt="GitHub"
-          className="logo"
-        />
-
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <button type="submit">
-              Look up GitHub user
-            </button>
-          </div>
-        </form>
-
-        <Route path="/github/:username" component={GithubUser} />
+      <div className="App">
+        <div className="App-header">
+          <h3>Ain't no party like an</h3>
+          <h1>API Party</h1>
+        </div>
+        <ul className="navLinks">
+          <li>
+            <NavLink to="/github">GitHub API</NavLink>
+          </li>
+          <li>
+            <NavLink to="/homework">Homework</NavLink>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/github" component={Github} />
+          <Route path="/homework" component={Homework} />
+          <Route
+            render={
+              () => (
+                <p>To get started, click one of the links above</p>
+              )
+            }
+          />
+        </Switch>
       </div>
     )
   }
 }
-
-export default Github
+export default App
